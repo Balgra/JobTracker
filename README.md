@@ -23,11 +23,11 @@ because it will keep track of your status and you can easily verify what's next 
 
 #Technologies
 
-Client side : React.js
-Server side : Asp.Net API
-Database : MySql Server
-Cloud Infrastructure: Azure
-Usage of background workers (hangfire) to send reminders or to add actions with delay (queues)
+- Client side : React.js
+- Server side : Asp.Net API
+- Database : MySql Server
+- Cloud Infrastructure: Azure
+- Usage of background workers (hangfire) to send reminders or to add actions with delay (queues)
 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
