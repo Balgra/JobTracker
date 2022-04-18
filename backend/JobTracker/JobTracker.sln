@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobTracker.API", "JobTracker.API\JobTracker.API.csproj", "{2A497826-81C1-40F0-8869-2F8273EB9FAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTracker.Core", "JobTracker.Core\JobTracker.Core.csproj", "{EBDA47DE-7509-463B-A423-85A5ACCCFB98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A497826-81C1-40F0-8869-2F8273EB9FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A497826-81C1-40F0-8869-2F8273EB9FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A497826-81C1-40F0-8869-2F8273EB9FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A497826-81C1-40F0-8869-2F8273EB9FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBDA47DE-7509-463B-A423-85A5ACCCFB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBDA47DE-7509-463B-A423-85A5ACCCFB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBDA47DE-7509-463B-A423-85A5ACCCFB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBDA47DE-7509-463B-A423-85A5ACCCFB98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40749525-5560-461E-98E1-E9A3F3FB9FB0}
+	EndGlobalSection
+EndGlobal
