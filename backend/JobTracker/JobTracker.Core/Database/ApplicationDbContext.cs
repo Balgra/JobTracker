@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JobTracker.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,8 @@ namespace JobTracker.Core.Database
         {
 
         }
+
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Job> Jobs { get; set; }
     }
 }
