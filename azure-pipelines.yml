@@ -6,8 +6,6 @@
 trigger:
 - main
 
-pool: 'Self hosted pool'
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
