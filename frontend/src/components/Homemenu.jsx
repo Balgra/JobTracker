@@ -7,7 +7,7 @@ const Homemenmu = () => {
             display: "flex",
             flexDirection : "row"
         }}>
-            <Container x={{
+            <Container sx={{
                 display: "flex",
                 justifyContent : "flex-start",
                 alignItems : "center"
@@ -23,7 +23,7 @@ const Homemenmu = () => {
                 </List>
             </Container>
 
-            <Container x={{
+            <Container sx={{
                 display: "flex",
                 justifyContent : "flex-start",
                 alignItems : "center"
@@ -37,7 +37,7 @@ const Homemenmu = () => {
 
                 </List>
             </Container>
-            <Container x={{
+            <Container sx={{
                 display: "flex",
                 justifyContent : "flex-start",
                 alignItems : "center"
@@ -51,7 +51,7 @@ const Homemenmu = () => {
 
                 </List>
             </Container>
-            <Container x={{
+            <Container sx={{
                 display: "flex",
                 justifyContent : "flex-start",
                 alignItems : "center"
