@@ -1,4 +1,5 @@
 import {Box, Container, List, ListItemButton, ListItemText} from "@mui/material";
+import Todo from "./Todo";
 
 const Homemenmu = () => {
     return (
@@ -11,36 +12,29 @@ const Homemenmu = () => {
                 justifyContent : "flex-start",
                 alignItems : "center"
             }}>
-            <List component="nav" aria-label="main mailbox folders">
-                    <ListItemText primary="1st step" />
-                <ListItemButton>
-                    <ListItemText primary="Add company" />
-                </ListItemButton>
-            </List>
+                <List component="nav" aria-label="main mailbox folders">
+
+                    <div className="todo-app">
+                        <div>Companies you applied for</div>
+                        <Todo />
+
+                    </div>
+
+                </List>
             </Container>
-    
-            <Container x={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-            <List component="nav" aria-label="main mailbox folders">
-                <ListItemText primary="2nd step" />
-                <ListItemButton>
-                    <ListItemText primary="Drafts" />
-                </ListItemButton>
-            </List>
-            </Container>
+
             <Container x={{
                 display: "flex",
                 justifyContent : "flex-start",
                 alignItems : "center"
             }}>
                 <List component="nav" aria-label="main mailbox folders">
-                    <ListItemText primary="3rd step" />
-                    <ListItemButton>
-                        <ListItemText primary="Drafts" />
-                    </ListItemButton>
+
+                    <div className="todo-app">
+                        <div>Tests you have coming</div>
+                        <Todo />
+                    </div>
+
                 </List>
             </Container>
             <Container x={{
@@ -49,14 +43,30 @@ const Homemenmu = () => {
                 alignItems : "center"
             }}>
                 <List component="nav" aria-label="main mailbox folders">
-                    <ListItemText primary="4th step" />
-                    <ListItemButton>
-                        <ListItemText primary="Drafts" />
-                    </ListItemButton>
+
+                    <div className="todo-app">
+                        <div>Interviews you have coming</div>
+                        <Todo />
+                    </div>
+
+                </List>
+            </Container>
+            <Container x={{
+                display: "flex",
+                justifyContent : "flex-start",
+                alignItems : "center"
+            }}>
+                <List component="nav" aria-label="main mailbox folders">
+
+                    <div className="todo-app">
+                        <div>Companies that accepted you</div>
+                        <Todo />
+                    </div>
+
                 </List>
             </Container>
         </Box>
-        
+
     );
 }
 

@@ -7,6 +7,7 @@ import {BrowserRouter, Routes, Route,} from "react-router-dom";
 import {render} from "react-dom";
 import ProfilePage from "./pages/ProfilePage";
 
+
 function App() {
   const rootElement = document.getElementById("root");
   return (
