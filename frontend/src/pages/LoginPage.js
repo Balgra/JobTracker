@@ -15,8 +15,18 @@ const LoginPage = () => {
 	// 	console.log(googleData);
 	// };
 	
+	function parseJwt (token) {
+		var base64Url = token.split('.')[1];
+		var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		}).join(''));
+		
+		return JSON.parse(jsonPayload);
+	};
+	
 	const handleLogin = async (googleData) =>{
-		const res = await fetch ('https://localhost:7002/api/users', {
+		await fetch ('https://localhost:7002/api/users', {
 			method: 'POST',
 			headers:{
 				'Content-Type':'application/json',
@@ -24,7 +34,8 @@ const LoginPage = () => {
 			},
 		});
 		
-		const data = await res.json();
+		const data = parseJwt(googleData.tokenId)
+		data.token = googleData.tokenId
 		setLoginData(data);
 		localStorage.setItem('loginData', JSON.stringify(data));
 	};
