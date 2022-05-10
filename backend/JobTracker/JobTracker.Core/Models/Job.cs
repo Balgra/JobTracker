@@ -13,11 +13,11 @@ namespace JobTracker.Core.Models
         public ApplicationStatus Status { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
         public int CompanyId { get; set; }
         public string? Notes { get; set; }
         public DateTime? Deadline { get; set; }
-
-
+        public string? UserId { get; set; }
+        public User? User { get; set; }
     }
 }
