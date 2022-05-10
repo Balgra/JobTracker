@@ -11,25 +11,23 @@ const LoginPage = () => {
 		alert(result);
 	};
 	
-	const handleLogin = (googleData) =>{
-		console.log(googleData);
-	};
-	
-	// const handleLogins = async (googleData) =>{
-	// 	const res = await fetch ('/api/google-login', {
-	// 		method: 'POST',
-	// 		body: JSON.stringify({
-	// 			token:googleData.tokenId,
-	// 		}),
-	// 		headers:{
-	// 			'Content-Type':'application/json',
-	// 		},
-	// 	});
-		
-	// 	const data = await res.json();
-	// 	setLoginData(data);
-	// 	localStorage.setItem('loginData', JSON.stringify(data));
+	// const handleLogin = (googleData) =>{
+	// 	console.log(googleData);
 	// };
+	
+	const handleLogin = async (googleData) =>{
+		const res = await fetch ('https://localhost:7002/api/users', {
+			method: 'POST',
+			headers:{
+				'Content-Type':'application/json',
+				'Authorization':'Bearer '+ googleData.tokenId
+			},
+		});
+		
+		const data = await res.json();
+		setLoginData(data);
+		localStorage.setItem('loginData', JSON.stringify(data));
+	};
 	
 	const handleLogout = () =>{
 		localStorage.removeItem('loginData');
@@ -69,5 +67,3 @@ const LoginPage = () => {
 }
 
 export default LoginPage;
-
-//<div className="g-signin2" data-onsuccess="onSignIn">rgaer</div>
