@@ -1,5 +1,9 @@
 import GoogleLogin from 'react-google-login';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {IsAuthenticated} from "../services/AuthStatus";
+import { Navigate } from "react-router-dom";
+
+
 
 const LoginPage = () => {
 	
@@ -7,6 +11,12 @@ const LoginPage = () => {
 		localStorage.getItem('loginData')
 		? JSON.parse(localStorage.getItem('loginData')) : null
 	);
+	const [loggedIn, setLoggedIn] = useState(false);
+	
+	useEffect(() => {
+		setLoggedIn(IsAuthenticated());
+	}, []);
+	
 	const handleFailure= (result) =>{
 		alert(result);
 	};
@@ -14,6 +24,7 @@ const LoginPage = () => {
 	// const handleLogin = (googleData) =>{
 	// 	console.log(googleData);
 	// };
+	
 	
 	function parseJwt (token) {
 		var base64Url = token.split('.')[1];
@@ -37,8 +48,11 @@ const LoginPage = () => {
 		const data = parseJwt(googleData.tokenId)
 		data.token = googleData.tokenId
 		setLoginData(data);
+		console.log(data);
 		localStorage.setItem('loginData', JSON.stringify(data));
 	};
+	
+
 	
 	const handleLogout = () =>{
 		localStorage.removeItem('loginData');
@@ -46,7 +60,9 @@ const LoginPage = () => {
 	}
 	
 	// noinspection CheckTagEmptyBody
-	return (
+	return  loggedIn ? (
+		<Navigate to ="/"/>
+	) : (
 		<div className="App">
 			<header className="App-header">
 				
