@@ -16,5 +16,5 @@ export const IsAuthenticated = () => {
 }
 
 export const Logout = () =>{
-	localStorage.clear();
+	localStorage.removeItem('loginData');
 }
