@@ -2,6 +2,7 @@ import {Box, Button, Container, IconButton} from "@mui/material";
 import {useState} from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import {Link} from "react-router-dom";
+import {Logout} from "../services/AuthStatus";
 
 const Navbar = () => {
     
@@ -30,7 +31,7 @@ const Navbar = () => {
             alignItems : "center",
         }}>
           {loggedIn ? <Link variant="body2" to="/" style={{ textDecoration: 'none' }}>
-                  <Button variant="outlined" onClick={() => {setLoggedIn(!loggedIn)}}>Logout</Button></Link>
+                  <Button variant="outlined" onClick={() => {Logout()}}>Logout</Button></Link>
            : <Link variant="body2" to="Login" style={{ textDecoration: 'none' }}>
                   <Button variant="outlined" onClick={() => {setLoggedIn(!loggedIn)}}>Login</Button></Link>}
             
