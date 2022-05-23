@@ -2,6 +2,8 @@ import {Box, Container, List} from "@mui/material";
 import Todo from "./Todo";
 
 const Homemenmu = () => {
+    
+    
     return (
         <Box sx={{
             display: "flex",
@@ -37,6 +39,37 @@ const Homemenmu = () => {
 
                 </List>
             </Container>
+    
+            <Container sx={{
+                display: "flex",
+                justifyContent : "flex-start",
+                alignItems : "center"
+            }}>
+                <List component="nav" aria-label="main mailbox folders">
+            
+                    <div className="todo-app">
+                        <div>Tests you have coming</div>
+                        <Todo />
+                    </div>
+        
+                </List>
+            </Container>
+    
+            <Container sx={{
+                display: "flex",
+                justifyContent : "flex-start",
+                alignItems : "center"
+            }}>
+                <List component="nav" aria-label="main mailbox folders">
+            
+                    <div className="todo-app">
+                        <div>Tests you have coming</div>
+                        <Todo />
+                    </div>
+        
+                </List>
+            </Container>
+            
             <Container sx={{
                 display: "flex",
                 justifyContent : "flex-start",
