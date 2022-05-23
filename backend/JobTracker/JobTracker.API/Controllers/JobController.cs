@@ -115,7 +115,7 @@ namespace JobTracker.API.Controllers
 
             if (fnd == null)
             {
-                return BadRequest("Job application not found");
+                return BadRequest("Job application not found or not authorized");
             }
 
             _dbContext.Jobs.Remove(fnd);

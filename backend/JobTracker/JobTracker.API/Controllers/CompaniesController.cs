@@ -24,6 +24,9 @@ namespace JobTracker.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCompany(string companyName)
         {
+            var userEmail = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+            var user = await _userManager.FindByEmailAsync(userEmail);
+
             if (companyName.Length < 5)
                 return BadRequest("Invalid name! Less than 5 characters!");
 
@@ -32,7 +35,7 @@ namespace JobTracker.API.Controllers
             if (existingCompany != null)
                 return BadRequest("Invalid name! Company already exist!");
 
-            var company = new Company() { CompanyName = companyName };
+            var company = new Company() { CompanyName = companyName, UserId = user.Id };
 
             var companyEntry = await _dbContext.Companies.AddAsync(company);
 
@@ -58,7 +61,7 @@ namespace JobTracker.API.Controllers
 
             if (fnd == null)
             {
-                return BadRequest("Company does not exist or you do not have access");
+                return BadRequest("Company does not exist or not authorized");
             }
 
             _dbContext.Companies.Remove(fnd);
