@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\JobTracker",
+    "\\backend\\JobTracker\\JobTracker.API",
+    "\\backend\\JobTracker\\JobTracker.API\\Controllers",
+    "\\backend\\JobTracker\\JobTracker.Core"
+  ],
+  "SelectedNode": "\\backend\\JobTracker\\JobTracker.API\\Controllers\\CompaniesController.cs",
+  "PreviewInSolutionExplorer": false
+}
