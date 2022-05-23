@@ -1,21 +1,15 @@
 import GoogleLogin from 'react-google-login';
-import {useEffect, useState} from "react";
-import {IsAuthenticated} from "../services/AuthStatus";
-import { Navigate } from "react-router-dom";
+import {useState} from "react";
+import {Navigate} from "react-router-dom";
 
 
 
-const LoginPage = () => {
+const LoginPage  = ({loggedIn, setLoggedIn} ) => {
 	
 	const [loginData, setLoginData] = useState(
 		localStorage.getItem('loginData')
 		? JSON.parse(localStorage.getItem('loginData')) : null
 	);
-	const [loggedIn, setLoggedIn] = useState(false);
-	
-	useEffect(() => {
-		setLoggedIn(IsAuthenticated());
-	}, []);
 	
 	const handleFailure= (result) =>{
 		alert(result);
@@ -48,7 +42,7 @@ const LoginPage = () => {
 		const data = parseJwt(googleData.tokenId)
 		data.token = googleData.tokenId
 		setLoginData(data);
-		console.log(data);
+		setLoggedIn(true);
 		localStorage.setItem('loginData', JSON.stringify(data));
 	};
 	
@@ -66,13 +60,14 @@ const LoginPage = () => {
 		<div className="App">
 			<header className="App-header">
 				
-				<h1> React Google Login App</h1>
+				<h1> Login With Google</h1>
 				<div>
 					{
 							loginData ?(
 								<div>
 									<h3>You logged in as {loginData.email}</h3>
 									<button onClick={handleLogout}>Logout</button>
+									<Navigate to ="/Profile" >Profile</Navigate>
 								</div>
 							)
 							:(

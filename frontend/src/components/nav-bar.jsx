@@ -1,12 +1,15 @@
 import {Box, Button, Container, IconButton} from "@mui/material";
-import {useState} from "react";
 import HomeIcon from '@mui/icons-material/Home';
 import {Link} from "react-router-dom";
-import {Logout} from "../services/AuthStatus";
+import { Logout} from "../services/AuthStatus";
 
-const Navbar = () => {
+
+const Navbar = ({loggedIn, setLoggedIn}) => {
     
-    const [loggedIn, setLoggedIn] = useState(true);
+    const handleLogout = () =>{
+        Logout();
+        setLoggedIn(false);
+    }
     
     return(
     <Box sx={{
@@ -30,15 +33,13 @@ const Navbar = () => {
             justifyContent : "flex-end",
             alignItems : "center",
         }}>
-          {loggedIn ? <Link variant="body2" to="/" style={{ textDecoration: 'none' }}>
-                  <Button variant="outlined" onClick={() => {Logout()}}>Logout</Button></Link>
+          {loggedIn ? <Link variant="body2" to="/Login" style={{ textDecoration: 'none' }}>
+                  <Button variant="outlined" onClick={() => {handleLogout()}}>Logout</Button></Link>
            : <Link variant="body2" to="Login" style={{ textDecoration: 'none' }}>
-                  <Button variant="outlined" onClick={() => {setLoggedIn(!loggedIn)}}>Login</Button></Link>}
+                  <Button variant="outlined" >Login</Button></Link>}
             
-            {loggedIn ? <Link variant="body2" to="Profile" style={{ textDecoration: 'none', marginLeft: '5px' }}>
+           <Link variant="body2" to="Profile" style={{ textDecoration: 'none', marginLeft: '5px' }}>
                     <Button variant="outlined">Profile</Button></Link>
-            : <Link variant="body2" to="Register" style={{ textDecoration: 'none',  marginLeft: '5px'}}>
-                    <Button variant="outlined">Register</Button></Link>}
 
         </Container>
     </Box>)

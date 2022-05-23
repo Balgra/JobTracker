@@ -1,11 +1,8 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Box, Button, Card, CardActions, CardContent, Container, Typography} from "@mui/material";
-import Navbar from "../components/nav-bar";
-import {IsAuthenticated} from  "../services/AuthStatus.js";
-import {useState} from "react";
 import { Navigate } from "react-router-dom";
 
-const ProfilePage = () => {
+const ProfilePage = ({loggedIn}) => {
 	
 	const bull = (
 		<Box
@@ -16,16 +13,8 @@ const ProfilePage = () => {
 		</Box>
 	);
 	
-	const [loggedIn, setLoggedIn] = useState(true);
-	
-	
-	useEffect(() => {
-		setLoggedIn(IsAuthenticated());
-	},[]);
-	
 	return loggedIn ? (
 		<div >
-			<Navbar></Navbar>
 			<Box sx={{
 				display: "flex",
 				justifyContent : "flex-start",
