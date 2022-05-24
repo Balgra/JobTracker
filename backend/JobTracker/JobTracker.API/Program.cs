@@ -88,7 +88,7 @@ builder.Services.AddAuthentication(x =>
         clientId: builder.Configuration["Authentication:Google:ClientId"]));
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-
+builder.Services.AddScoped<IDeadlineNotificationService, DeadlineNotificationService>();
 
 var app = builder.Build();
 
@@ -108,5 +108,12 @@ app.UseAuthorization();
 app.UseHangfireDashboard();
 
 app.MapControllers();
+
+var scope = app.Services.CreateScope();
+
+RecurringJob.AddOrUpdate(
+    "DeadlineReminderRecurringJob",
+    () => scope.ServiceProvider.GetService<IDeadlineNotificationService>().SendDeadlineNotificationEmails(),
+    "* 3 * * *");
 
 app.Run();
