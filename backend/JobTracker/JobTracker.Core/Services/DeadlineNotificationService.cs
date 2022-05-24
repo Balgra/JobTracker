@@ -63,7 +63,7 @@ namespace JobTracker.Core.Services
 
                     if (jobs.Any())
                     {
-                        BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(user.Email, "Job Applications Deadline Reminders", GetNotificationEmailHTML(jobs)));
+                        BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(user.Email, "Job Applications Deadline Reminders ", GetNotificationEmailHTML(jobs)));
                     }
                 }
 
