@@ -1,6 +1,8 @@
-﻿using JobTracker.API.requests;
+﻿using Hangfire;
+using JobTracker.API.requests;
 using JobTracker.Core.Database;
 using JobTracker.Core.Models;
+using JobTracker.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +19,13 @@ namespace JobTracker.API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _dbContext;
-        public JobController(UserManager<User> userManager, ApplicationDbContext dbContext)
+        private readonly IEmailSender _emailSender;
+
+        public JobController(UserManager<User> userManager, ApplicationDbContext dbContext, IEmailSender emailSender)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            _emailSender = emailSender;
         }
 
         [HttpPost]
@@ -43,6 +48,8 @@ namespace JobTracker.API.Controllers
             var jobEntry = await _dbContext.Jobs.AddAsync(finalJob);
 
             await _dbContext.SaveChangesAsync();
+
+            BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(userEmail, "Job Application Added", @$"<h1>Hello,</h1><p>You've just added {Job.JobName} to the platform"));
 
             return Ok(finalJob);
 
