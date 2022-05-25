@@ -1,103 +1,46 @@
-import {Box, Container, List} from "@mui/material";
+import {Box, List, Paper} from "@mui/material";
 import Todo from "./Todo";
 
 const Homemenmu = () => {
     
+    const statusName=["Wishlist",
+        "Applied",
+        "OnlineAssignment",
+        "Interview",
+        "Offer",
+        "Rejection"];
     
     return (
         <Box sx={{
             display: "flex",
-            flexDirection : "row"
+            flexDirection : "row",
+            justifyContent : "center",
+            alignItems : "flex-start",
         }}>
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
-
-                    <div className="todo-app">
-                        <div>Companies you applied for</div>
-                        <Todo />
-
-                    </div>
-
-                </List>
-            </Container>
-
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
-
-                    <div className="todo-app">
-                        <div>Tests you have coming</div>
-                        <Todo />
-                    </div>
-
-                </List>
-            </Container>
     
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
-            
-                    <div className="todo-app">
-                        <div>Tests you have coming</div>
-                        <Todo />
-                    </div>
+            {statusName.map((e) =>
+                <Paper elevation={14} sx={{
+                    display: "flex",
+                    justifyContent : "flex-start",
+                    alignItems : "flex-start",
+                    ml:"50px",
+                    mt:"10px",
+                    height: "90vh",
+                    mr:"50px"
         
-                </List>
-            </Container>
-    
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
+                }}>
+                    <List>
             
-                    <div className="todo-app">
-                        <div>Tests you have coming</div>
-                        <Todo />
-                    </div>
+                        <Box className="todo-app" sx={{
+                        }}>
+                            <div>{e}</div>
+                            <Todo />
+            
+                        </Box>
         
-                </List>
-            </Container>
-            
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
-
-                    <div className="todo-app">
-                        <div>Interviews you have coming</div>
-                        <Todo />
-                    </div>
-
-                </List>
-            </Container>
-            <Container sx={{
-                display: "flex",
-                justifyContent : "flex-start",
-                alignItems : "center"
-            }}>
-                <List component="nav" aria-label="main mailbox folders">
-
-                    <div className="todo-app">
-                        <div>Companies that accepted you</div>
-                        <Todo />
-                    </div>
-
-                </List>
-            </Container>
+                    </List>
+                </Paper>
+            )}
         </Box>
 
     );

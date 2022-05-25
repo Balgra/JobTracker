@@ -1,6 +1,7 @@
 import './App.css';
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import JobCreate from "./pages/JobCreate";
 import {BrowserRouter, Routes, Route,} from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/nav-bar";
@@ -15,7 +16,7 @@ function App() {
 	
 	useEffect(() => {
 		setLoggedIn(IsAuthenticated());
-	},[]);
+	}, []);
 	
 	return (
 		<>
@@ -24,10 +25,11 @@ function App() {
 				<Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
 				<Routes>
 					{loggedIn ? <><Route path="/" element={<HomePage/>}/>
-								<Route path="Profile" element={<ProfilePage loggedIn={loggedIn}/>}/> </>
+							<Route path="job" element={<JobCreate loggedIn={loggedIn} />}/>
+							<Route path="Profile" element={<ProfilePage loggedIn={loggedIn}/>}/> </>
 						: <Route path="Login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
 					}
-				<Route path="*" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}> </Route>
+					<Route path="*" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}> </Route>
 				</Routes>
 			</BrowserRouter>
 		</>
