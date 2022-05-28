@@ -2,7 +2,7 @@ import {Box, Button, Container, IconButton} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import {Link} from "react-router-dom";
 import { Logout} from "../services/AuthStatus";
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const Navbar = ({loggedIn, setLoggedIn}) => {
     
@@ -26,6 +26,12 @@ const Navbar = ({loggedIn, setLoggedIn}) => {
                 <Link variant="body2" to="/"
                       style={{ textDecoration: 'none' }}><HomeIcon color="primary"/></Link>
             </IconButton>
+            <IconButton>
+                <Link variant="body2" to="/job"
+                      style={{ textDecoration: 'none' }}><AddBoxIcon color="primary"/></Link>
+            </IconButton>
+            
+            
         </Container>
         
         <Container sx={{
