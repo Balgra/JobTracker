@@ -18,3 +18,12 @@ export const IsAuthenticated = () => {
 export const Logout = () =>{
 	localStorage.removeItem('loginData');
 }
+
+export const GetToken = () => {
+	if (IsAuthenticated())
+	{
+		var payload = JSON.parse(localStorage.getItem("loginData"))
+		return payload.token;
+	}
+	return undefined;
+} 

@@ -1,86 +1,97 @@
 // a big form to get values from company.
-import React, {useState} from 'react';
-import Box from '@mui/material/Box';
-import FilledInput from '@mui/material/FilledInput';
+import React, { useEffect, useState } from 'react';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import {MenuItem, Select, TextField} from "@mui/material";
-import {DatePicker, LocalizationProvider} from "@mui/lab";
+import { MenuItem, Select, TextField, Button } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { ApplicationStatus } from '../Models/ApplicationStatus';
+import { AddJob } from '../services/JobService';
+import { GetCompanies } from '../services/CompaniesService';
 
-const JobCreate = ({loggedIn}) => {
-	
-	const [dropdown] = [];
-	const [name] = [];
-	const deadline = new Date();
-	const [notes] = [];
-	
-	const handleChange = (event) => {
-		console.log(event.target.value);
-	};
 
-	const handleDate = (deadline) => {
-		console.log(deadline)
+const JobCreate = ({ loggedIn }) => {
+	const [jobStatus, setJobStatus] = useState(0);
+	const [selectedCompany, setSelectedCompany] = useState(0);
+	const [jobName, setJobName] = useState("");
+	const [notes, setNotes] = useState("");
+	const [deadline, setDeadline] = useState();
+	const [companies, setCompanies] = useState([]);
+
+	useEffect(() => {
+		GetCompanies().then((response) => setCompanies(response))
+	}, [])
+	const handleSubmit = () => {
+		AddJob(jobName, jobStatus, selectedCompany.id, notes, deadline)
+			.then(() => { })
+			.catch((e) => console.log(e));
 	}
-	
+
 	return (
-		<Box
-			component="form"
-			sx={{
-				'& > :not(style)': { m: 1 },
-			}}
-			noValidate
-			autoComplete="off"
-		>
-			<FormControl sx={{ m: 1, minWidth: 400 }}>
-				<InputLabel id="state-dropdown">Select state</InputLabel>
-				<Select
-					labelId="state-dropdown"
-					id="state_dropdown"
-					defaultValue={dropdown ||""}
-					label="Select state"
-					onChange={handleChange}
-				>
-					<MenuItem value={"Wishlist"}>Wishlist</MenuItem>
-					<MenuItem value={"Applied"}>Applied</MenuItem>
-					<MenuItem value={"Online Assignment"}>Online Assignment</MenuItem>
-					<MenuItem value={"Interview"}>Interview</MenuItem>
-					<MenuItem value={"Verdict"}>Verdict</MenuItem>
-				</Select>
-			</FormControl>
+		<div className="container d-flex flex-column">
+			<h1 className='my-5'>Add your job</h1>
+			<div className='mt-3'>
+				<FormControl variant="standard">
+					<InputLabel htmlFor="component-simple">Job name or title</InputLabel>
+					<Input id="component-simple" value={jobName} onChange={(e) => setJobName(e.target.value)} />
+				</FormControl>
+			</div>
+			<div className='mt-3' style={{ minWidth: '100px' }}>
+				<FormControl>
+					<InputLabel id="state-dropdown">Select the company</InputLabel>
+					<Select
+						labelId="state-dropdown"
+						id="state_dropdown"
+						value={selectedCompany}
+						label="Select state"
+						onChange={(e) => setSelectedCompany(e.target.value)}
+					>
+						{companies.map((c) => <MenuItem value={c}>{c.companyName}</MenuItem>)}
+					</Select>
+				</FormControl>
+			</div>
+			<div className='mt-3' style={{ minWidth: '100px' }}>
+				<FormControl>
+					<InputLabel id="state-dropdown">Select the job status</InputLabel>
+					<Select
+						labelId="state-dropdown"
+						id="state_dropdown"
+						value={jobStatus}
+						label="Select state"
+						onChange={(e) => setJobStatus(e.target.value)}
+					>
+						<MenuItem value={ApplicationStatus.Wishlist}>Wishlist</MenuItem>
+						<MenuItem value={ApplicationStatus.Applied}>Applied</MenuItem>
+						<MenuItem value={ApplicationStatus.OnlineAssignment}>Online Assignment</MenuItem>
+						<MenuItem value={ApplicationStatus.Interview}>Interview</MenuItem>
+						<MenuItem value={ApplicationStatus.Verdict}>Verdict</MenuItem>
+					</Select>
+				</FormControl>
+			</div>
+			<div className='mt-3'>
+				<FormControl variant="standard">
+					<InputLabel htmlFor="component-simple">Notes</InputLabel>
+					<Input id="component-simple" value={notes} onChange={(e) => setNotes(e.target.value)} />
+				</FormControl>
+			</div>
+			<div className='mt-3'>
+				<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<DatePicker
+						label="Deadline"
+						value={deadline}
+						onChange={(e) => setDeadline(e)}
+						renderInput={(params) => <TextField {...params} />}
+					/>
+				</LocalizationProvider>
+			</div>
 
-			<br></br>
-
-			<FormControl variant="standard">
-				<InputLabel htmlFor="component-simple">Name</InputLabel>
-				<Input id="component-simple" value={name} onChange={handleChange} />
-			</FormControl>
-
-			<FormControl variant="standard">
-				<InputLabel htmlFor="component-simple">Notes</InputLabel>
-				<Input id="component-simple" value={notes} onChange={handleChange} />
-			</FormControl>
-
-			<br></br>
-
-			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<DatePicker
-					label="Deadline"
-					value={deadline}
-					onChange={handleDate}
-					renderInput={(params) => <TextField {...params} />}
-				/>
-			</LocalizationProvider>
-
-			<button type="submit">Subscribe</button>
-		</Box>
+			<div className='mt-3'>
+				<Button variant="outlined" onClick={() => handleSubmit()}>Save</Button>
+			</div>
+		</div>
 	);
 
 }
 
 export default JobCreate;
-
-module.exports = {JobCreate}
