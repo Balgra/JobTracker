@@ -1,0 +1,20 @@
+{
+  "name": "distribuited-programming",
+  "version": "1.0.0",
+  "description": "My Job Applications Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dp-2022@dev.azure.com/dp-2022/Distribuited%20Programming/_git/Distribuited%20Programming"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {}
+}

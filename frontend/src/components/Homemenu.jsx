@@ -7,8 +7,7 @@ const Homemenmu = () => {
         "Applied",
         "OnlineAssignment",
         "Interview",
-        "Offer",
-        "Rejection"];
+        "Verdict"];
     
     return (
         <Box sx={{
