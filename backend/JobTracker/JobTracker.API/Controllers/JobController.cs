@@ -84,6 +84,24 @@ namespace JobTracker.API.Controllers
             return Ok(jobs);
         }
 
+        [HttpGet("id")]
+        public async Task<IActionResult> GetJobById(int id)
+        {
+            var userEmail = User.FindFirstValue(JwtRegisteredClaimNames.Email);
+            var user = await _userManager.FindByEmailAsync(userEmail);
+
+            var job = await _dbContext.Jobs.Where(j => j.UserId == user.Id && j.Id == id).Include(p => p.Company).FirstOrDefaultAsync();
+
+            if(job == null)
+            {
+                return BadRequest("Job does not exist or unauthorized");
+            }
+
+            job.User = null;
+
+            return Ok(job);
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateJob(Job job)
         {
