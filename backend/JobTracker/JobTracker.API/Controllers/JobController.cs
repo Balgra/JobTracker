@@ -49,7 +49,9 @@ namespace JobTracker.API.Controllers
 
             await _dbContext.SaveChangesAsync();
 
-            BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(userEmail, "Job Application Added", @$"<h1>Hello,</h1><p>You've just added {Job.JobName} to the platform"));
+            string companyName = company.CompanyName;
+
+            BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(userEmail, "Job Application Added", @$"<h3>Hello there,</h3><p>You've just added a new job application: {Job.JobName}" + " at " + companyName));
 
             return Ok(finalJob);
 
