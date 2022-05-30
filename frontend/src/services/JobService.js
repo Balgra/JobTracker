@@ -19,9 +19,18 @@ export const GetJobs = async () => {
 }
 
 export const GetJobById = async (id) => {
-    let response = await fetch(apiUrl + 'jobs?id=' + id, {
+    let response = await fetch(apiUrl + 'jobs/id?id=' + id, {
         headers: {'Authorization' : 'Bearer ' + GetToken(), 'Content-Type': 'application/json'},
     })
     let body = await response.json();
     return body;
+}
+
+export const EditJob = (job) => {
+    return fetch(apiUrl + 'jobs', {
+        method: 'PUT',
+        headers: {'Authorization' : 'Bearer ' + GetToken(), 'Content-Type': 'application/json'},
+        body: JSON.stringify(job)
+    });
+
 }

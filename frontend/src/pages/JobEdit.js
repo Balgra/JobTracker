@@ -5,32 +5,35 @@ import { MenuItem, TextField, Button } from "@mui/material";
 import { DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ApplicationStatus } from '../Models/ApplicationStatus';
-import { AddJob, GetJobById } from '../services/JobService';
+import {EditJob, GetJobById} from '../services/JobService';
 import { GetCompanies } from '../services/CompaniesService';
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 
 
 const JobCreate = ({ loggedIn }) => {
     let { id } = useParams();
+    let navigate = useNavigate();
 
-    const [jobStatus, setJobStatus] = useState(0);
-    const [selectedCompany, setSelectedCompany] = useState(0);
-    const [jobName, setJobName] = useState("");
-    const [notes, setNotes] = useState("");
-    const [deadline, setDeadline] = useState();
+    const [job, setJob] = useState(undefined);
     const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
         GetCompanies().then((response) => setCompanies(response))
-        GetJobById(id).then((response) => console.log(response))
+        GetJobById(id).then((response) => setJob(response))
+
     }, [])
 
     const handleSubmit = () => {
-        AddJob(jobName, jobStatus, selectedCompany.id, notes, deadline)
+       EditJob(job)
             .then(() => { })
             .catch((e) => console.log(e));
-        window.location.href = 'HomePage.js';
+       navigate("/", { replace: true })
     }
+
+    if (job === undefined)
+        return <div>Loading</div>
+    else
+        console.log(job)
 
     return (
         <div className="container d-flex flex-column" style={{display: 'flex', textAlign: 'center'}}>
@@ -41,21 +44,19 @@ const JobCreate = ({ loggedIn }) => {
                            label="Job title"
                            multiline
                            maxRows={4}
-                           value={jobName}
-                           onChange={(e) => setJobName(e.target.value)}
+                           value={job.jobName}
+                           onChange={(e) => {let newJob = {...job, jobName: e.target.value}; setJob(newJob)}}
                 />
             </div>
             <div>
                 <FormControl className='mt-4' style={{ minWidth: '300px', textAlign: 'center' }}>
                     <TextField
-                        labelId="state-dropdown"
-                        id="state_dropdown"
-                        select
-                        value={selectedCompany}
-                        label="Select company"
-                        onChange={(e) => setSelectedCompany(e.target.value)}
+                        id="outlined-multiline-flexible"
+                        disabled
+                        value={companies.find((e) => e.id === job.companyId).companyName}
+                        label="Company"
                     >
-                        {companies.map((c) => <MenuItem value={c}>{c.companyName}</MenuItem>)}
+                        {job.company.companyName}
                     </TextField>
                 </FormControl>
             </div>
@@ -65,9 +66,9 @@ const JobCreate = ({ loggedIn }) => {
                         labelId="state-dropdown"
                         id="state_dropdown"
                         select
-                        value={jobStatus}
+                        value={job.status}
                         label="Select the job status"
-                        onChange={(e) => setJobStatus(e.target.value)}
+                        onChange={(e) => {let newJob = {...job, status: e.target.value}; setJob(newJob)}}
                     >
                         <MenuItem value={ApplicationStatus.Wishlist}>Wishlist</MenuItem>
                         <MenuItem value={ApplicationStatus.Applied}>Applied</MenuItem>
@@ -86,8 +87,8 @@ const JobCreate = ({ loggedIn }) => {
                         label="Notes"
                         multiline
                         rows={4}
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
+                        value={job.notes}
+                        onChange={(e) => {let newJob = {...job, notes: e.target.value}; setJob(newJob)}}
                     />
                 </FormControl>
             </div>
@@ -97,8 +98,8 @@ const JobCreate = ({ loggedIn }) => {
                         autoOk
                         ampm={false}
                         disablePast
-                        value={deadline}
-                        onChange={(e) => setDeadline(e)}
+                        value={job.deadline}
+                        onChange={(e) => {let newJob = {...job, deadline: e.target.value}; setJob(newJob)}}
                         renderInput={(params) => <TextField {...params} />}
                         label="Deadline"
                     />
