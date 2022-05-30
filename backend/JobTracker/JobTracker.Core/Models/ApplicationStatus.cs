@@ -12,6 +12,7 @@ namespace JobTracker.Core.Models
         Applied,
         OnlineAssignment,
         Interview,
-        Verdict
+        Offer,
+        Rejection
     }
 }

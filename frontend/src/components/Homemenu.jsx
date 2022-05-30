@@ -16,9 +16,21 @@ const Homemenmu = () => {
         "Interview",
         "Verdict"];
 
+    const statuses=["Wishlist",
+        "Applied",
+        "OnlineAssignment",
+        "Interview",
+        "Offer",
+        "Rejection"];
 
     const getJobsByStatus = (status) => {
-        let filteredJobs = jobs.filter(j => statusName[j.status] === status)
+        let filteredJobs;
+
+        if (status === "Verdict")
+            filteredJobs = jobs.filter(j => statuses[j.status] === "Offer" || statuses[j.status] === "Rejection")
+        else
+            filteredJobs = jobs.filter(j => statusName[j.status] === status)
+
         return filteredJobs
     }
 
@@ -28,7 +40,7 @@ const Homemenmu = () => {
     }
 
     if (jobs.length <= 0)
-        return <h1>You have not added any job. Please add a job application in order to see the list</h1>
+        return <h2>You have not added any job. Please add a job application in order to see the list</h2>
     
     return (
         <Box sx={{
@@ -54,7 +66,7 @@ const Homemenmu = () => {
                         <Box className="todo-app" sx={{
                         }}>
                             <div className="mb-4" style={{minWidth: '200px'}}>{e}</div>
-                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick(c.id)}>{c.jobName} at {c.company.companyName}</Container>)}
+                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick(c.id)} style={{color: 'red'}}>{c.jobName} at {c.company.companyName}</Container>)}
             
                         </Box>
         
