@@ -50,10 +50,10 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  min-height: 450px;
+  min-height: 100px;
   background: white;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 2px;
   padding-bottom: 32px;
 }
 

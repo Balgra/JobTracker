@@ -1,10 +1,8 @@
 // a big form to get values from company.
 import React, { useEffect, useState } from 'react';
 import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import { MenuItem, Select, TextField, Button } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
+import { MenuItem, TextField, Button } from "@mui/material";
+import { DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ApplicationStatus } from '../Models/ApplicationStatus';
 import { AddJob } from '../services/JobService';
@@ -22,43 +20,49 @@ const JobCreate = ({ loggedIn }) => {
 	useEffect(() => {
 		GetCompanies().then((response) => setCompanies(response))
 	}, [])
+
 	const handleSubmit = () => {
 		AddJob(jobName, jobStatus, selectedCompany.id, notes, deadline)
 			.then(() => { })
 			.catch((e) => console.log(e));
+		window.location.href = 'HomePage.js';
 	}
 
 	return (
-		<div className="container d-flex flex-column">
+		<div className="container d-flex flex-column" style={{display: 'flex', textAlign: 'center'}}>
 			<h1 className='my-5'>Add your job</h1>
-			<div className='mt-3'>
-				<FormControl variant="standard">
-					<InputLabel htmlFor="component-simple">Job name or title</InputLabel>
-					<Input id="component-simple" value={jobName} onChange={(e) => setJobName(e.target.value)} />
-				</FormControl>
+			<div className='mt-3' >
+				<TextField style={{minWidth: '300px', textAlign: 'center'}}
+					id="outlined-multiline-flexible"
+					label="Job title"
+					multiline
+					maxRows={4}
+					value={jobName}
+					onChange={(e) => setJobName(e.target.value)}
+				/>
 			</div>
-			<div className='mt-3' style={{ minWidth: '100px' }}>
-				<FormControl>
-					<InputLabel id="state-dropdown">Select the company</InputLabel>
-					<Select
+			<div>
+				<FormControl className='mt-4' style={{ minWidth: '300px', textAlign: 'center' }}>
+					<TextField
 						labelId="state-dropdown"
 						id="state_dropdown"
+						select
 						value={selectedCompany}
-						label="Select state"
+						label="Select company"
 						onChange={(e) => setSelectedCompany(e.target.value)}
 					>
 						{companies.map((c) => <MenuItem value={c}>{c.companyName}</MenuItem>)}
-					</Select>
+					</TextField>
 				</FormControl>
 			</div>
-			<div className='mt-3' style={{ minWidth: '100px' }}>
-				<FormControl>
-					<InputLabel id="state-dropdown">Select the job status</InputLabel>
-					<Select
+			<div>
+				<FormControl className='mt-4' style={{ minWidth: '300px' }}>
+					<TextField
 						labelId="state-dropdown"
 						id="state_dropdown"
+						select
 						value={jobStatus}
-						label="Select state"
+						label="Select the job status"
 						onChange={(e) => setJobStatus(e.target.value)}
 					>
 						<MenuItem value={ApplicationStatus.Wishlist}>Wishlist</MenuItem>
@@ -66,28 +70,39 @@ const JobCreate = ({ loggedIn }) => {
 						<MenuItem value={ApplicationStatus.OnlineAssignment}>Online Assignment</MenuItem>
 						<MenuItem value={ApplicationStatus.Interview}>Interview</MenuItem>
 						<MenuItem value={ApplicationStatus.Verdict}>Verdict</MenuItem>
-					</Select>
+					</TextField>
 				</FormControl>
 			</div>
 			<div className='mt-3'>
-				<FormControl variant="standard">
-					<InputLabel htmlFor="component-simple">Notes</InputLabel>
-					<Input id="component-simple" value={notes} onChange={(e) => setNotes(e.target.value)} />
+				<FormControl className='mt-4' style={{ minWidth: '300px' }}>
+					{/*<InputLabel htmlFor="component-simple">Notes</InputLabel>*/}
+					{/*<Input id="component-simple" value={notes} onChange={(e) => setNotes(e.target.value)} />*/}
+					<TextField
+						id="outlined-multiline-static"
+						label="Notes"
+						multiline
+						rows={4}
+						value={notes}
+						onChange={(e) => setNotes(e.target.value)}
+					/>
 				</FormControl>
 			</div>
-			<div className='mt-3'>
+			<div className='mt-4' style={{minWidth: '300px', textAlign: 'center'}}>
 				<LocalizationProvider dateAdapter={AdapterDateFns}>
-					<DatePicker
-						label="Deadline"
+					<DateTimePicker
+						autoOk
+						ampm={false}
+						disablePast
 						value={deadline}
 						onChange={(e) => setDeadline(e)}
 						renderInput={(params) => <TextField {...params} />}
+						label="Deadline"
 					/>
 				</LocalizationProvider>
 			</div>
 
 			<div className='mt-3'>
-				<Button variant="outlined" onClick={() => handleSubmit()}>Save</Button>
+				<Button variant="outlined" onClick={() => handleSubmit()} style={{minWidth: '100px'}}>Save</Button>
 			</div>
 		</div>
 	);
