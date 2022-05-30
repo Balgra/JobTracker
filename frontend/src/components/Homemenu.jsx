@@ -34,6 +34,14 @@ const Homemenmu = () => {
         return filteredJobs
     }
 
+    const getColor = (status) => {
+        if (statuses[status] === "Offer")
+            return "green"
+        if (statuses[status] === "Rejection")
+            return "red"
+        return "black"
+    }
+
 
     const handleClick = (id) => {
         navigate("/jobEdit/" + id, { replace: true });
@@ -56,17 +64,18 @@ const Homemenmu = () => {
                     justifyContent : "flex-start",
                     alignItems : "flex-start",
                     ml:"20px",
-                    mt:"10px",
+                    mt:"50px",
                     height: "50vh",
-                    mr:"20px",
+                    mr:"20px"
                 }}>
                     
                     <List>
             
                         <Box className="todo-app" sx={{
                         }}>
-                            <div className="mb-4" style={{minWidth: '200px'}}>{e}</div>
-                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick(c.id)} style={{color: 'red'}}>{c.jobName} at {c.company.companyName}</Container>)}
+                            <div className="mb-4" style={{minWidth: '200px', fontSize: '1.5rem', borderBottom: "2px solid gray"}}>{e}</div>
+                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick(c.id)} style={{color: getColor(c.status), border: '1px solid ' + getColor(c.status), marginTop: '10px', marginBottom: '10px'
+                            , borderRadius: '15px'}}>{c.jobName} at {c.company.companyName}</Container>)}
             
                         </Box>
         
