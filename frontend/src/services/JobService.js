@@ -32,5 +32,11 @@ export const EditJob = (job) => {
         headers: {'Authorization' : 'Bearer ' + GetToken(), 'Content-Type': 'application/json'},
         body: JSON.stringify(job)
     });
+}
 
+export const DeleteJob = (id) => {
+    return fetch(apiUrl + 'jobs?id=' + id, {
+        method: 'DELETE',
+        headers: {'Authorization': 'Bearer ' + GetToken(), 'Content-Type': 'application/json'},
+    });
 }

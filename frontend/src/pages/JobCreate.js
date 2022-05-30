@@ -53,6 +53,7 @@ const JobCreate = ({ loggedIn }) => {
 					>
 						{companies.map((c) => <MenuItem value={c}>{c.companyName}</MenuItem>)}
 					</TextField>
+
 				</FormControl>
 			</div>
 			<div>

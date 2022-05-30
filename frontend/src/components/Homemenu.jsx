@@ -16,6 +16,7 @@ const Homemenmu = () => {
         "Interview",
         "Verdict"];
 
+
     const getJobsByStatus = (status) => {
         let filteredJobs = jobs.filter(j => statusName[j.status] === status)
         return filteredJobs

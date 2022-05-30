@@ -5,7 +5,7 @@ import { MenuItem, TextField, Button } from "@mui/material";
 import { DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ApplicationStatus } from '../Models/ApplicationStatus';
-import {EditJob, GetJobById} from '../services/JobService';
+import {EditJob, GetJobById, DeleteJob} from '../services/JobService';
 import { GetCompanies } from '../services/CompaniesService';
 import {useNavigate, useParams} from "react-router";
 
@@ -28,6 +28,13 @@ const JobCreate = ({ loggedIn }) => {
             .then(() => { })
             .catch((e) => console.log(e));
        navigate("/", { replace: true })
+    }
+
+    const handleDelete = () => {
+        DeleteJob(id)
+            .then(() => { })
+            .catch((e) => console.log(e));
+        navigate("/", { replace: true })
     }
 
     if (job === undefined)
@@ -108,6 +115,7 @@ const JobCreate = ({ loggedIn }) => {
 
             <div className='mt-3'>
                 <Button variant="outlined" onClick={() => handleSubmit()} style={{minWidth: '100px'}}>Save</Button>
+                <Button variant="outlined" onClick={() => handleDelete()} style={{minWidth: '100px', marginLeft: '10px'}} color="error">Delete</Button>
             </div>
         </div>
     );
