@@ -43,9 +43,6 @@ const Navbar = ({loggedIn, setLoggedIn}) => {
                   <Button variant="outlined" onClick={() => {handleLogout()}}>Logout</Button></Link>
            : <Link variant="body2" to="Login" style={{ textDecoration: 'none' }}>
                   <Button variant="outlined" >Login</Button></Link>}
-            
-           <Link variant="body2" to="Profile" style={{ textDecoration: 'none', marginLeft: '5px' }}>
-                    <Button variant="outlined">Profile</Button></Link>
 
         </Container>
     </Box>)
