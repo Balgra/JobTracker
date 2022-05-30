@@ -7,6 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/nav-bar";
 import {useEffect, useState} from "react";
 import {IsAuthenticated} from "./services/AuthStatus";
+import JobEdit from "./pages/JobEdit";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 				<Routes>
 					{loggedIn ? <><Route path="/" element={<HomePage/>}/>
 							<Route path="job" element={<JobCreate loggedIn={loggedIn} />}/>
+							<Route path="jobEdit" element={<JobEdit loggedIn={loggedIn} />}/>
 							<Route path="Profile" element={<ProfilePage loggedIn={loggedIn}/>}/> </>
 						: <Route path="Login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
 					}
