@@ -76,7 +76,7 @@ namespace JobTracker.API.Controllers
             var user = await _userManager.FindByEmailAsync(userEmail);
 
 
-            var jobs = await _dbContext.Jobs.Where(j => j.UserId == user.Id && j.Status==status).ToListAsync();
+            var jobs = await _dbContext.Jobs.Where(j => j.UserId == user.Id && j.Status==status).Include(p => p.Company).ToListAsync();
             
             foreach (var j in jobs)
                 j.User = null;
