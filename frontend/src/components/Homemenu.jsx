@@ -1,7 +1,7 @@
 import {Box, Container, List, Paper} from "@mui/material";
 import { useEffect, useState } from "react";
 import {GetJobs} from "../services/JobService";
-import {Navigate, useNavigate} from "react-router";
+import {useNavigate} from "react-router";
 
 const Homemenmu = () => {
     const [jobs, setJobs] = useState([]);
@@ -22,10 +22,8 @@ const Homemenmu = () => {
     }
 
 
-    const handleClick = () => {
-
-
-        navigate("/jobEdit", { replace: true });
+    const handleClick = (id) => {
+        navigate("/jobEdit/" + id, { replace: true });
     }
 
     if (jobs.length <= 0)
@@ -55,7 +53,7 @@ const Homemenmu = () => {
                         <Box className="todo-app" sx={{
                         }}>
                             <div className="mb-4" style={{minWidth: '200px'}}>{e}</div>
-                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick()}>{c.jobName} at {c.company.companyName}</Container>)}
+                            {getJobsByStatus(e).map(c => <Container onClick={() => handleClick(c.id)}>{c.jobName} at {c.company.companyName}</Container>)}
             
                         </Box>
         

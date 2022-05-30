@@ -27,7 +27,7 @@ function App() {
 				<Routes>
 					{loggedIn ? <><Route path="/" element={<HomePage/>}/>
 							<Route path="job" element={<JobCreate loggedIn={loggedIn} />}/>
-							<Route path="jobEdit" element={<JobEdit loggedIn={loggedIn} />}/>
+							<Route path="jobEdit/:id" element={<JobEdit loggedIn={loggedIn} />}/>
 							<Route path="Profile" element={<ProfilePage loggedIn={loggedIn}/>}/> </>
 						: <Route path="Login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
 					}

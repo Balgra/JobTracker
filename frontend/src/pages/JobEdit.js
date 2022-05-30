@@ -5,11 +5,14 @@ import { MenuItem, TextField, Button } from "@mui/material";
 import { DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { ApplicationStatus } from '../Models/ApplicationStatus';
-import { AddJob } from '../services/JobService';
+import { AddJob, GetJobById } from '../services/JobService';
 import { GetCompanies } from '../services/CompaniesService';
+import {useParams} from "react-router";
 
 
 const JobCreate = ({ loggedIn }) => {
+    let { id } = useParams();
+
     const [jobStatus, setJobStatus] = useState(0);
     const [selectedCompany, setSelectedCompany] = useState(0);
     const [jobName, setJobName] = useState("");
@@ -19,6 +22,7 @@ const JobCreate = ({ loggedIn }) => {
 
     useEffect(() => {
         GetCompanies().then((response) => setCompanies(response))
+        GetJobById(id).then((response) => console.log(response))
     }, [])
 
     const handleSubmit = () => {
