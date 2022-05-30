@@ -27,14 +27,29 @@ namespace JobTracker.Core.Services
         private string GetNotificationEmailHTML(List<Job> jobs)
         {
             string email_li = "";
-            foreach(var job in jobs)
+            string pre = "";
+
+            foreach (var job in jobs)
             {
-                email_li += " <li> <b>" + job.JobName + ": </b> " + job.Deadline.Value.ToString("dddd, dd MMMM yyyy hh:mm") + "</li> ";
+
+                if (job.Status == ApplicationStatus.OnlineAssignment)
+                    pre = " until ";
+                else
+                    pre = " on ";
+
+                string companyName = job.Company.CompanyName;
+                string fullJobName = job.JobName + "@" + companyName;
+                email_li += " <li> <b>" + fullJobName + ": </b> " + job.Status.ToString() + pre + job.Deadline.Value.ToString("dddd, dd MMMM yyyy HH:mm") + "</li> ";
+
+                if(job.Notes != null && job.Notes.Any(x => char.IsLetter(x)))
+                {
+                    email_li += " <p> &emsp;&emsp;&emsp;" + job.Notes.ToString() + " </p>";
+                }
             }
 
             return $@"
                 
-                <h1> Hello, </h1>
+                <h3> Hello there, </h3>
                 <p> You have {jobs.Count} upcoming deadline(s): </p>
                 
                 <ol>
@@ -59,7 +74,7 @@ namespace JobTracker.Core.Services
 
                 foreach(var user in users)
                 {
-                    var jobs = await _dbContext.Jobs.Where(j => j.UserId == user.Id && j.Deadline.HasValue && j.Deadline>currTime && j.Deadline < timeLimit).ToListAsync();
+                    var jobs = await _dbContext.Jobs.Where(j => j.UserId == user.Id && j.Deadline.HasValue && j.Deadline>currTime && j.Deadline < timeLimit && (j.Status == ApplicationStatus.Interview || j.Status == ApplicationStatus.OnlineAssignment)).Include(p => p.Company).ToListAsync();
 
                     if (jobs.Any())
                     {
