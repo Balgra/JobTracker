@@ -53,6 +53,7 @@ const JobCreate = ({ loggedIn }) => {
 					>
 						{companies.map((c) => <MenuItem value={c}>{c.companyName}</MenuItem>)}
 					</TextField>
+
 				</FormControl>
 			</div>
 			<div>
@@ -69,7 +70,8 @@ const JobCreate = ({ loggedIn }) => {
 						<MenuItem value={ApplicationStatus.Applied}>Applied</MenuItem>
 						<MenuItem value={ApplicationStatus.OnlineAssignment}>Online Assignment</MenuItem>
 						<MenuItem value={ApplicationStatus.Interview}>Interview</MenuItem>
-						<MenuItem value={ApplicationStatus.Verdict}>Verdict</MenuItem>
+						<MenuItem value={ApplicationStatus.Offer}>Offer</MenuItem>
+						<MenuItem value={ApplicationStatus.Rejection}>Rejection</MenuItem>
 					</TextField>
 				</FormControl>
 			</div>
