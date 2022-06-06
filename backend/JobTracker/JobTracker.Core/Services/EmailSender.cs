@@ -12,7 +12,7 @@ namespace JobTracker.Core.Services
             { Name = "Job Tracker Platform", Email = "jobtracker-no-reply@adelinchis.ro" };
             var msg = GetMessage(senderAddress, subject, htmlMessage);
             msg.AddTo(new EmailAddress(to));
-            var client = new SendGridClient("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");
+            var client = new SendGridClient(" ");
             var response = await client.SendEmailAsync(msg);
             return response.IsSuccessStatusCode;
         }
